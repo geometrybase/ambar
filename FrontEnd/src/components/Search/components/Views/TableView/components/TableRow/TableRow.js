@@ -92,9 +92,6 @@ class TableRowResult extends Component {
                         title={localization.searchPage.imagePreviewLabel}>
                         <ImagePreviewIcon color='#00bcd4' hoverColor='#80deea' />
                     </IconButton>
-                    {!hidden_mark && <IconButton onTouchTap={() => hideFile(fileId)} title={localization.searchPage.removeLabel}>
-                        <DeleteIcon color='#00bcd4' hoverColor='#80deea' />
-                    </IconButton>}                   
                 </TableRowColumn>
             </TableRow>
         )

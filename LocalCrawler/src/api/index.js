@@ -41,7 +41,11 @@ export default () => {
 			res.sendStatus(404)
 			return
 		}
-
+    if(absolutePath.slice(absolutePath.length-4)==='pdf'){
+      let stat = fs.statSync(absolutePath);
+      res.setHeader('Content-Length', stat.size);
+      res.setHeader('Content-Type', 'application/pdf');
+    }
 		res.download(absolutePath, (error) => {
 			if (error) {
 				if (!res.headersSent) {

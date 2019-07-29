@@ -110,16 +110,6 @@ class DetailedCard extends Component {
                                     onTouchTap={() => { window.open(downloadUri) }}
                                 />                                                  
                             </div>}
-                            <div>
-                                {!hidden_mark && <FlatButton
-                                    icon={<DeleteIcon />}
-                                    secondary={true}
-                                    label={localization.searchPage.removeLabel}
-                                    title={localization.searchPage.removeDescriptionLabel}
-                                    style={{ color: 'grey' }}
-                                    onTouchTap={() => hideFile(fileId)}
-                                />}                                
-                            </div>
                         </div>}
                     </CardActions>
                 </Card>
