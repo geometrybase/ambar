@@ -3,6 +3,8 @@ import { Router } from 'express'
 import fs from 'fs'
 import path from 'path'
 import config from '../config'
+import contentDisposition from 'content-disposition'
+
 
 import * as ApiProxy from '../services/ApiProxy'
 
@@ -41,12 +43,17 @@ export default () => {
 			res.sendStatus(404)
 			return
 		}
-    if(absolutePath.slice(absolutePath.length-4)==='pdf'){
-      let stat = fs.statSync(absolutePath);
-      res.setHeader('Content-Length', stat.size);
-      res.setHeader('Content-Type', 'application/pdf');
-    }
-		res.download(absolutePath, (error) => {
+        if(absolutePath.slice(absolutePath.length-4)==='pdf'){
+          let stat = fs.statSync(absolutePath);
+          res.setHeader('Content-disposition', contentDisposition(absolutePath, {type:'inline'}));
+          res.setHeader('Content-Length', stat.size);
+          res.setHeader('Content-Type', 'application/pdf');
+        }else{
+          let stat = fs.statSync(absolutePath);
+          res.setHeader('Content-disposition', contentDisposition(absolutePath));
+          res.setHeader('Content-Length', stat.size);
+        }
+		res.sendFile(absolutePath, (error) => {
 			if (error) {
 				if (!res.headersSent) {
 					res.status(500).json({ error: error })
